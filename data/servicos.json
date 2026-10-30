@@ -1,0 +1,58 @@
+[
+  {
+    "id": "banho",
+    "nome": "Banho",
+    "descricao": "Banho com shampoo neutro, secagem e perfume.",
+    "preco": 60,
+    "duracaoMin": 60,
+    "domiciliar": true
+  },
+  {
+    "id": "tosa",
+    "nome": "Tosa higiênica",
+    "descricao": "Tosa nas áreas de higiene, patas e rosto.",
+    "preco": 80,
+    "duracaoMin": 60,
+    "domiciliar": true
+  },
+  {
+    "id": "banho-tosa",
+    "nome": "Banho e tosa completa",
+    "descricao": "Banho, tosa completa e hidratação dos pelos.",
+    "preco": 120,
+    "duracaoMin": 120,
+    "domiciliar": true
+  },
+  {
+    "id": "consulta",
+    "nome": "Consulta veterinária",
+    "descricao": "Avaliação clínica geral com veterinário(a).",
+    "preco": 150,
+    "duracaoMin": 30,
+    "domiciliar": true
+  },
+  {
+    "id": "vacina",
+    "nome": "Vacinação",
+    "descricao": "Aplicação de vacina com carteirinha atualizada.",
+    "preco": 90,
+    "duracaoMin": 30,
+    "domiciliar": true
+  },
+  {
+    "id": "adestramento",
+    "nome": "Adestramento (sessão)",
+    "descricao": "Sessão individual de adestramento básico.",
+    "preco": 110,
+    "duracaoMin": 60,
+    "domiciliar": false
+  },
+  {
+    "id": "hospedagem",
+    "nome": "Hospedagem (check-in)",
+    "descricao": "Recepção do pet para a diária de hospedagem.",
+    "preco": 80,
+    "duracaoMin": 30,
+    "domiciliar": false
+  }
+]

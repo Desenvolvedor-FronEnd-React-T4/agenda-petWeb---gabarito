@@ -1,0 +1,437 @@
+/* ==========================================================================
+   AgendaPet Web — Patinhas & Cia | Folha de estilo
+   Mobile-first: o CSS base vale para o celular; as media queries ACRESCENTAM.
+   Regras: layout com Flexbox · cores e medidas em variáveis · sem !important ·
+   sem seletores de id (só classes, para manter a especificidade baixa).
+   ========================================================================== */
+
+/* 1. TOKENS (variáveis CSS) --------------------------------------------------
+   Contraste mínimo de texto: 4,5:1 (WCAG AA). Ex.: branco sobre --primaria
+   (#00695c) = 6,5:1 · --texto sobre --fundo = ~14:1 · --texto-suave sobre
+   --superficie = 6,3:1.                                                      */
+:root {
+  --primaria: #00695c;
+  --primaria-escura: #004d40;
+  --sobre-primaria: #ffffff;
+  --acento: #ffb300;
+  --texto: #1c2b2d;
+  --texto-suave: #4a5d60;
+  --fundo: #f3f7f6;
+  --superficie: #ffffff;
+  --superficie-2: #e8f1ef;
+  --borda: #c4d3d0;
+  --foco: #0b57d0;
+  --erro: #b3261e;
+  --erro-fundo: #fdecea;
+  --sucesso: #1b5e20;
+  --sucesso-fundo: #e6f4ea;
+  --info: #0d47a1;
+  --info-fundo: #e3f0fd;
+  --alerta-texto: #6b4500;
+  --alerta-fundo: #fff3cd;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --raio: 10px;
+  --espaco: 16px;
+  --fonte: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Tema escuro: só redefine as variáveis. O resto do CSS não muda. */
+:root[data-tema="escuro"] {
+  --primaria: #4db6ac;
+  --primaria-escura: #80cbc4;
+  --sobre-primaria: #00201c;
+  --texto: #e6eeee;
+  --texto-suave: #a9bcbc;
+  --fundo: #101719;
+  --superficie: #1a2427;
+  --superficie-2: #243034;
+  --borda: #3a4b4f;
+  --foco: #ffd54f;
+  --erro: #ff9c94;
+  --erro-fundo: #3d1f1d;
+  --sucesso: #8bd694;
+  --sucesso-fundo: #1e3523;
+  --info: #90c2ff;
+  --info-fundo: #1b2d44;
+  --alerta-texto: #ffe08a;
+  --alerta-fundo: #3d3213;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. BASE ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--texto);
+  background: var(--fundo);
+}
+
+img { max-width: 100%; height: auto; }
+
+h1, h2, h3, p, ul, dl, dd { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+a { color: var(--primaria); }
+
+/* Foco visível para quem navega por teclado (nunca remova o outline sem substituir). */
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--espaco);
+  top: -60px;
+  z-index: 20;
+  padding: 10px 14px;
+  background: var(--primaria);
+  color: var(--sobre-primaria);
+  border-radius: 0 0 var(--raio) var(--raio);
+  font-weight: 600;
+}
+.skip-link:focus { top: 0; }
+
+/* 3. TOPO ------------------------------------------------------------------ */
+.topo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px var(--espaco);
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+  box-shadow: var(--sombra);
+}
+
+.topo__marca { display: flex; align-items: center; gap: 12px; }
+.topo__loja { font-size: 0.85rem; color: var(--texto-suave); }
+.topo__titulo { font-size: 1.5rem; line-height: 1.2; color: var(--primaria); }
+
+.topo__ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.relogio { display: flex; align-items: baseline; gap: 6px; margin-right: auto; }
+.relogio__rotulo { font-size: 0.8rem; color: var(--texto-suave); }
+.relogio__hora { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.nav__link {
+  display: inline-block;
+  padding: 10px 14px;               /* alvo de toque confortável */
+  border-radius: 999px;
+  background: var(--superficie-2);
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav__link:hover { background: var(--primaria); color: var(--sobre-primaria); }
+
+/* 4. LAYOUT PRINCIPAL ------------------------------------------------------- */
+.principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--espaco);
+}
+
+.painel { display: flex; flex-direction: column; gap: var(--espaco); }
+.coluna { display: flex; flex-direction: column; gap: var(--espaco); min-width: 0; }
+
+.cartao {
+  padding: var(--espaco);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+.cartao__titulo { margin-bottom: 12px; font-size: 1.2rem; color: var(--primaria); }
+.cartao__subtitulo { margin: -6px 0 12px; color: var(--texto-suave); font-size: 0.9rem; }
+.subtitulo { margin: 16px 0 8px; font-size: 1rem; }
+
+/* 5. FORMULÁRIO ------------------------------------------------------------- */
+.form { display: flex; flex-direction: column; gap: 12px; }
+.linha { display: flex; flex-wrap: wrap; gap: 12px; }
+.linha > .campo { flex: 1 1 140px; }
+.campo { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.campo--grande { flex: 3 1 160px; }
+.campo--pequeno { flex: 1 1 70px; }
+.campo--busca { flex: 2 1 200px; }
+
+.campo__rotulo { font-weight: 600; font-size: 0.9rem; }
+
+.campo__entrada {
+  width: 100%;
+  min-height: 44px;                  /* alvo de toque confortável */
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+.campo__entrada[aria-invalid="true"] { border-color: var(--erro); border-width: 2px; }
+
+.campo__erro { color: var(--erro); font-size: 0.85rem; font-weight: 600; }
+.campo__dica { color: var(--texto-suave); font-size: 0.85rem; margin-top: -6px; }
+
+.campo--check { flex-direction: row; align-items: center; gap: 8px; }
+.campo--check input { width: 22px; height: 22px; accent-color: var(--primaria); }
+
+.endereco {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 12px;
+  border: 1px dashed var(--primaria);
+  border-radius: var(--raio);
+  background: var(--superficie-2);
+}
+.endereco__legenda { padding: 0 6px; font-weight: 700; color: var(--primaria); }
+
+.aviso {
+  padding: 10px 12px;
+  border-radius: var(--raio);
+  border-left: 4px solid var(--acento);
+}
+.aviso--feriado { background: var(--alerta-fundo); color: var(--alerta-texto); }
+.aviso__texto { margin-bottom: 8px; font-weight: 600; }
+
+/* Estados (carregando / erro / sucesso / info) */
+.status { padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; }
+.status--carregando, .status--info { background: var(--info-fundo); color: var(--info); }
+.status--erro { background: var(--erro-fundo); color: var(--erro); }
+.status--sucesso { background: var(--sucesso-fundo); color: var(--sucesso); }
+
+/* 6. BOTÕES ------------------------------------------------------------------ */
+.botao {
+  min-height: 44px;
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 600;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.botao--pequeno { min-height: 40px; padding: 6px 12px; font-size: 0.9rem; }
+.botao--cheio { width: 100%; }
+
+.botao--principal { background: var(--primaria); color: var(--sobre-primaria); }
+.botao--principal:hover { background: var(--primaria-escura); }
+
+.botao--secundario { background: var(--superficie); color: var(--primaria); border-color: var(--primaria); }
+.botao--secundario:hover { background: var(--superficie-2); }
+
+.botao--perigo { background: var(--superficie); color: var(--erro); border-color: var(--erro); }
+.botao--perigo:hover { background: var(--erro-fundo); }
+
+.botao:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* 7. SERVIÇOS ------------------------------------------------------------------ */
+.servicos { display: flex; flex-direction: column; gap: 8px; }
+.servico { padding: 10px 12px; background: var(--superficie-2); border-radius: 8px; }
+.servico__topo { display: flex; justify-content: space-between; gap: 8px; }
+.servico__preco { font-weight: 700; color: var(--primaria); white-space: nowrap; }
+.servico__descricao { font-size: 0.9rem; }
+.servico__meta { font-size: 0.8rem; color: var(--texto-suave); }
+
+/* 8. AGENDA --------------------------------------------------------------------- */
+.filtros { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.filtros > .campo { flex: 1 1 140px; }
+
+.proximo {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: var(--info-fundo);
+  color: var(--info);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.contador { margin-bottom: 8px; color: var(--texto-suave); font-size: 0.9rem; }
+.vazio { padding: 16px; text-align: center; color: var(--texto-suave); border: 1px dashed var(--borda); border-radius: var(--raio); }
+
+.agenda { display: flex; flex-direction: column; gap: 8px; }
+
+.item {
+  padding: 10px 12px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-left: 6px solid var(--primaria);
+  border-radius: var(--raio);
+}
+.item--concluido { border-left-color: var(--sucesso); }
+.item--cancelado { border-left-color: var(--erro); opacity: 0.8; }
+.item--atrasado { border-left-color: var(--acento); background: var(--alerta-fundo); }
+.item--realce { box-shadow: 0 0 0 2px var(--primaria); }
+.item--expandido { background: var(--superficie-2); }
+
+.item__linha { display: flex; flex-direction: column; gap: 6px; }
+
+.item__toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 4px 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.item__hora { font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primaria); }
+.item__titulo { font-weight: 700; }
+.item__tutor { flex-basis: 100%; font-size: 0.9rem; color: var(--texto-suave); }
+
+.item__selos { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.item__valor { margin-left: auto; font-weight: 700; }
+
+.item__acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+.item__detalhes {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--borda);
+  font-size: 0.9rem;
+}
+.item__detalhes dt { font-weight: 700; }
+
+.selo {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.selo--agendado { background: var(--info-fundo); color: var(--info); }
+.selo--concluido { background: var(--sucesso-fundo); color: var(--sucesso); }
+.selo--cancelado { background: var(--erro-fundo); color: var(--erro); }
+.selo--atrasado { background: var(--alerta-fundo); color: var(--alerta-texto); border: 1px solid var(--acento); }
+
+/* 9. FECHAMENTO ---------------------------------------------------------------- */
+.resumo { display: flex; flex-wrap: wrap; gap: 8px; }
+.resumo__item { flex: 1 1 calc(50% - 8px); padding: 10px 12px; background: var(--superficie-2); border-radius: 8px; }
+.resumo__rotulo { font-size: 0.8rem; color: var(--texto-suave); }
+.resumo__valor { font-size: 1.25rem; font-weight: 700; }
+
+.tabela-rolagem { overflow-x: auto; }
+.tabela { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.tabela th, .tabela td { padding: 8px; text-align: left; border-bottom: 1px solid var(--borda); }
+.tabela th { color: var(--texto-suave); font-size: 0.8rem; }
+
+.exportacao { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.exportacao__texto { font-family: Consolas, Menlo, monospace; font-size: 0.8rem; }
+
+/* 10. ATALHOS, LEMBRETE, TOAST, RODAPÉ ---------------------------------------- */
+.atalhos { display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; }
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 1px 6px;
+  text-align: center;
+  font-family: Consolas, Menlo, monospace;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+}
+
+.lembrete {
+  padding: 12px 16px;
+  background: var(--alerta-fundo);
+  color: var(--alerta-texto);
+  border-left: 6px solid var(--acento);
+  border-radius: var(--raio);
+  font-weight: 700;
+}
+
+.toast {
+  position: fixed;
+  left: var(--espaco);
+  right: var(--espaco);
+  bottom: var(--espaco);
+  z-index: 30;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  border-radius: var(--raio);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  pointer-events: none;              /* o aviso nunca "rouba" o clique dos botões que ficam por baixo */
+}
+.toast--sucesso { background: var(--sucesso); color: #ffffff; }
+.toast--info { background: var(--info); color: #ffffff; }
+.toast--erro { background: var(--erro); color: #ffffff; }
+:root[data-tema="escuro"] .toast--sucesso,
+:root[data-tema="escuro"] .toast--info,
+:root[data-tema="escuro"] .toast--erro { color: #101719; }
+:root[data-tema="escuro"] .toast--sucesso { background: #8bd694; }
+:root[data-tema="escuro"] .toast--info { background: #90c2ff; }
+:root[data-tema="escuro"] .toast--erro { background: #ff9c94; }
+
+.rodape { padding: 20px var(--espaco); text-align: center; font-size: 0.85rem; color: var(--texto-suave); }
+
+/* 11. TABLET (≥ 640px) ---------------------------------------------------------- */
+@media (min-width: 640px) {
+  .topo { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+  .topo__nav { flex-basis: 100%; }
+  .item__linha { flex-direction: row; align-items: center; justify-content: space-between; }
+  .item__toggle { flex: 1; width: auto; }
+  .item__tutor { flex-basis: auto; }
+  .item__selos { flex-shrink: 0; }
+  .resumo__item { flex-basis: calc(33.333% - 8px); }
+}
+
+/* 12. DESKTOP (≥ 1024px): duas colunas lado a lado ------------------------------- */
+@media (min-width: 1024px) {
+  .painel { flex-direction: row; align-items: flex-start; }
+  .coluna--form { flex: 1 1 380px; }
+  .coluna--agenda { flex: 2 1 560px; }
+  .topo__nav { flex-basis: auto; }
+  .topo { flex-wrap: nowrap; }
+}
+
+/* Preferência do sistema: reduz animações (não usamos muitas, mas fica o padrão). */
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
+
+/* Impressão: só a agenda e o fechamento, sem controles (bônus). */
+@media print {
+  .topo, .skip-link, .coluna--form, .cartao--atalhos, .filtros, .item__acoes, .acoes, .exportacao, .toast, .rodape { display: none; }
+  .cartao { box-shadow: none; border-color: #999999; }
+  .principal { padding: 0; }
+}
+
+/* Atributo hidden SEMPRE por último: precisa vencer os `display` definidos nas classes acima
+   (mesma especificidade; vale a ordem no arquivo). */
+[hidden] { display: none; }

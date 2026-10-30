@@ -1,0 +1,22 @@
+[
+  {
+    "protocolo": "AP-0001", "tutor": "Mariana Souza", "telefone": "(11) 98877-6655", "pet": "Thor", "especie": "Cão",
+    "servicoId": "banho", "data": "2026-10-20", "hora": "08:00", "status": "Agendado",
+    "observacoes": "", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0002", "tutor": "Carlos Lima", "telefone": "(11) 97766-5544", "pet": "Luna", "especie": "Cão",
+    "servicoId": "tosa", "data": "2026-10-20", "hora": "08:00", "status": "Agendado",
+    "observacoes": "Mesmo horário do AP-0001: conflito.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0003", "tutor": "Fernanda Alves", "telefone": "(11) 3456-7890", "pet": "Mel", "especie": "Gato",
+    "servicoId": "consulta", "data": "2026-13-45", "hora": "25:00", "status": "Pendente",
+    "observacoes": "Data, hora e status inválidos.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0004", "tutor": "", "telefone": "(11) 96655-4433", "pet": "Bolt", "especie": "Cão",
+    "servicoId": "servico-que-nao-existe", "data": "2026-10-20", "hora": "11:00", "status": "Agendado",
+    "observacoes": "Tutor vazio e serviço inexistente.", "domiciliar": true, "endereco": null
+  }
+]

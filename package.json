@@ -1,0 +1,27 @@
+{
+  "name": "agendapet-web",
+  "version": "1.0.0",
+  "description": "AgendaPet Web: painel de agendamentos para o pet shop Patinhas & Cia (HTML, CSS e JavaScript puros + scripts Node.js).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "http-server . -p 5500 -c-1 -o",
+    "fechamento": "node scripts/fechamento-dia.js --data=2026-10-20",
+    "validar": "node scripts/validar-agenda.cjs",
+    "validar:erro": "node scripts/validar-agenda.cjs data/agenda-invalida.json",
+    "test": "node --test tests/"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "pet shop",
+    "agenda",
+    "javascript",
+    "front-end"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

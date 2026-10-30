@@ -1,0 +1,60 @@
+[
+  {
+    "protocolo": "AP-0001", "tutor": "Mariana Souza", "telefone": "(11) 98877-6655", "pet": "Thor", "especie": "Cão",
+    "servicoId": "banho", "data": "2026-10-20", "hora": "08:00", "status": "Concluído",
+    "observacoes": "Alérgico a perfume forte.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0002", "tutor": "Carlos Lima", "telefone": "(11) 97766-5544", "pet": "Luna", "especie": "Cão",
+    "servicoId": "banho-tosa", "data": "2026-10-20", "hora": "09:00", "status": "Concluído",
+    "observacoes": "Tosa na máquina, pelo curto.", "domiciliar": true,
+    "endereco": { "cep": "01310-200", "logradouro": "Avenida Paulista", "numero": "1578", "complemento": "apto 42", "bairro": "Bela Vista", "cidade": "São Paulo", "uf": "SP" }
+  },
+  {
+    "protocolo": "AP-0003", "tutor": "Fernanda Alves", "telefone": "(11) 3456-7890", "pet": "Mel", "especie": "Gato",
+    "servicoId": "consulta", "data": "2026-10-20", "hora": "10:00", "status": "Concluído",
+    "observacoes": "", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0004", "tutor": "Rafael Costa", "telefone": "(11) 96655-4433", "pet": "Bolt", "especie": "Cão",
+    "servicoId": "vacina", "data": "2026-10-20", "hora": "10:30", "status": "Cancelado",
+    "observacoes": "Tutor remarcou para a semana seguinte.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0005", "tutor": "Paula Mendes", "telefone": "(11) 95544-3322", "pet": "Nina", "especie": "Cão",
+    "servicoId": "tosa", "data": "2026-10-20", "hora": "11:00", "status": "Concluído",
+    "observacoes": "", "domiciliar": true,
+    "endereco": { "cep": "07011-000", "logradouro": "Rua Dom Pedro II", "numero": "220", "complemento": "", "bairro": "Centro", "cidade": "Guarulhos", "uf": "SP" }
+  },
+  {
+    "protocolo": "AP-0006", "tutor": "João Pedro Nunes", "telefone": "(11) 94433-2211", "pet": "Rex", "especie": "Cão",
+    "servicoId": "adestramento", "data": "2026-10-20", "hora": "13:00", "status": "Agendado",
+    "observacoes": "Foco em obediência na guia.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0007", "tutor": "Camila Rocha", "telefone": "(11) 93322-1100", "pet": "Bela", "especie": "Cão",
+    "servicoId": "banho", "data": "2026-10-20", "hora": "14:00", "status": "Agendado",
+    "observacoes": "", "domiciliar": true,
+    "endereco": { "cep": "01412-000", "logradouro": "Rua Augusta", "numero": "2000", "complemento": "casa", "bairro": "Jardins", "cidade": "São Paulo", "uf": "SP" }
+  },
+  {
+    "protocolo": "AP-0008", "tutor": "Lucas Prado", "telefone": "(11) 92211-0099", "pet": "Frida", "especie": "Gato",
+    "servicoId": "hospedagem", "data": "2026-10-20", "hora": "15:30", "status": "Agendado",
+    "observacoes": "Leva a própria caixa de transporte.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0009", "tutor": "Ana Beatriz Reis", "telefone": "(11) 91100-9988", "pet": "Toby", "especie": "Cão",
+    "servicoId": "banho-tosa", "data": "2026-10-20", "hora": "16:00", "status": "Agendado",
+    "observacoes": "", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0010", "tutor": "Sônia Martins", "telefone": "(11) 3344-5566", "pet": "Zeca", "especie": "Cão",
+    "servicoId": "banho", "data": "2026-10-20", "hora": "10:30", "status": "Concluído",
+    "observacoes": "Assumiu o horário que o AP-0004 liberou.", "domiciliar": false, "endereco": null
+  },
+  {
+    "protocolo": "AP-0011", "tutor": "Bruno Tavares", "telefone": "(11) 98899-0011", "pet": "Pipoca", "especie": "Roedor",
+    "servicoId": "consulta", "data": "2026-10-21", "hora": "09:00", "status": "Agendado",
+    "observacoes": "Primeira consulta.", "domiciliar": false, "endereco": null
+  }
+]

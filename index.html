@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgendaPet Web — Agenda de atendimentos | Patinhas &amp; Cia</title>
+  <meta name="description" content="AgendaPet Web: painel de agendamentos do pet shop Patinhas &amp; Cia, com catálogo de serviços, endereço por CEP, aviso de feriados e fechamento do dia.">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="topo">
+    <div class="topo__marca">
+      <img class="topo__logo" src="img/logo.svg" alt="" width="44" height="44">
+      <div>
+        <p class="topo__loja">Patinhas &amp; Cia</p>
+        <h1 class="topo__titulo">AgendaPet Web</h1>
+      </div>
+    </div>
+
+    <div class="topo__ferramentas">
+      <p class="relogio">
+        <span class="relogio__rotulo">Agora</span>
+        <time class="relogio__hora" id="relogio">--:--</time>
+      </p>
+      <button type="button" class="botao botao--secundario" id="btn-lembretes" aria-pressed="true">Pausar lembretes</button>
+      <button type="button" class="botao botao--secundario" id="btn-tema" aria-pressed="false">Tema escuro</button>
+    </div>
+
+    <nav class="topo__nav" aria-label="Seções da página">
+      <ul class="nav">
+        <li><a class="nav__link" href="#novo-agendamento">Novo agendamento</a></li>
+        <li><a class="nav__link" href="#agenda">Agenda do dia</a></li>
+        <li><a class="nav__link" href="#fechamento">Fechamento do dia</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="principal" id="conteudo" tabindex="-1">
+    <p class="lembrete" id="lembrete" role="status" hidden></p>
+
+    <div class="painel">
+      <!-- ================= Coluna 1: novo agendamento + serviços ================= -->
+      <div class="coluna coluna--form">
+        <section class="cartao" id="novo-agendamento" aria-labelledby="titulo-novo">
+          <h2 class="cartao__titulo" id="titulo-novo">Novo agendamento</h2>
+
+          <form class="form" id="form-agendamento" novalidate>
+            <div class="campo">
+              <label class="campo__rotulo" for="tutor">Nome do tutor</label>
+              <input class="campo__entrada" type="text" id="tutor" name="tutor" autocomplete="name" required aria-describedby="erro-tutor">
+              <p class="campo__erro" id="erro-tutor" hidden></p>
+            </div>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="telefone">Telefone com DDD</label>
+              <input class="campo__entrada" type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" placeholder="(11) 98888-7777" required aria-describedby="erro-telefone">
+              <p class="campo__erro" id="erro-telefone" hidden></p>
+            </div>
+
+            <div class="linha">
+              <div class="campo">
+                <label class="campo__rotulo" for="pet">Nome do pet</label>
+                <input class="campo__entrada" type="text" id="pet" name="pet" required aria-describedby="erro-pet">
+                <p class="campo__erro" id="erro-pet" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="especie">Espécie</label>
+                <select class="campo__entrada" id="especie" name="especie" required aria-describedby="erro-especie">
+                  <option value="">Selecione…</option>
+                  <option>Cão</option>
+                  <option>Gato</option>
+                  <option>Ave</option>
+                  <option>Roedor</option>
+                  <option>Outro</option>
+                </select>
+                <p class="campo__erro" id="erro-especie" hidden></p>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="servico">Serviço</label>
+              <select class="campo__entrada" id="servico" name="servico" required aria-describedby="erro-servico">
+                <option value="">Carregando serviços…</option>
+              </select>
+              <p class="campo__erro" id="erro-servico" hidden></p>
+            </div>
+
+            <div class="linha">
+              <div class="campo">
+                <label class="campo__rotulo" for="data">Data</label>
+                <input class="campo__entrada" type="date" id="data" name="data" required aria-describedby="erro-data">
+                <p class="campo__erro" id="erro-data" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="hora">Horário</label>
+                <input class="campo__entrada" type="time" id="hora" name="hora" min="08:00" max="17:30" step="1800" required aria-describedby="erro-hora">
+                <p class="campo__erro" id="erro-hora" hidden></p>
+              </div>
+            </div>
+
+            <div class="aviso aviso--feriado" id="feriado-aviso" role="status" hidden>
+              <p class="aviso__texto" id="feriado-texto"></p>
+              <div class="campo campo--check">
+                <input type="checkbox" id="feriado-confirmar" name="feriado-confirmar" aria-describedby="erro-feriado-confirmar">
+                <label for="feriado-confirmar">Agendar mesmo assim</label>
+              </div>
+              <p class="campo__erro" id="erro-feriado-confirmar" hidden></p>
+            </div>
+
+            <div class="campo campo--check">
+              <input type="checkbox" id="domiciliar" name="domiciliar" aria-describedby="dica-domiciliar">
+              <label for="domiciliar">Atendimento domiciliar</label>
+            </div>
+            <p class="campo__dica" id="dica-domiciliar">Escolha um serviço para ver se ele pode ser feito na casa do tutor.</p>
+
+            <fieldset class="endereco" id="grupo-endereco" hidden>
+              <legend class="endereco__legenda">Endereço do atendimento</legend>
+
+              <div class="campo">
+                <label class="campo__rotulo" for="cep">CEP</label>
+                <input class="campo__entrada" type="text" id="cep" name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="01001-000" maxlength="9" aria-describedby="cep-status erro-cep">
+                <p class="status" id="cep-status" role="status" hidden></p>
+                <p class="campo__erro" id="erro-cep" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="logradouro">Rua</label>
+                <input class="campo__entrada" type="text" id="logradouro" name="logradouro" autocomplete="address-line1" aria-describedby="erro-logradouro">
+                <p class="campo__erro" id="erro-logradouro" hidden></p>
+              </div>
+              <div class="linha">
+                <div class="campo">
+                  <label class="campo__rotulo" for="numero">Número</label>
+                  <input class="campo__entrada" type="text" id="numero" name="numero" aria-describedby="erro-numero">
+                  <p class="campo__erro" id="erro-numero" hidden></p>
+                </div>
+                <div class="campo">
+                  <label class="campo__rotulo" for="complemento">Complemento</label>
+                  <input class="campo__entrada" type="text" id="complemento" name="complemento">
+                </div>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="bairro">Bairro</label>
+                <input class="campo__entrada" type="text" id="bairro" name="bairro" aria-describedby="erro-bairro">
+                <p class="campo__erro" id="erro-bairro" hidden></p>
+              </div>
+              <div class="linha">
+                <div class="campo campo--grande">
+                  <label class="campo__rotulo" for="cidade">Cidade</label>
+                  <input class="campo__entrada" type="text" id="cidade" name="cidade" autocomplete="address-level2" aria-describedby="erro-cidade">
+                  <p class="campo__erro" id="erro-cidade" hidden></p>
+                </div>
+                <div class="campo campo--pequeno">
+                  <label class="campo__rotulo" for="uf">UF</label>
+                  <input class="campo__entrada" type="text" id="uf" name="uf" maxlength="2" autocomplete="address-level1" aria-describedby="erro-uf">
+                  <p class="campo__erro" id="erro-uf" hidden></p>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="campo">
+              <label class="campo__rotulo" for="observacoes">Observações (opcional)</label>
+              <textarea class="campo__entrada" id="observacoes" name="observacoes" rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="botao botao--principal botao--cheio">Salvar agendamento</button>
+          </form>
+        </section>
+
+        <aside class="cartao" aria-labelledby="titulo-servicos">
+          <h2 class="cartao__titulo" id="titulo-servicos">Serviços e preços</h2>
+          <div class="status" id="servicos-status" role="status" hidden></div>
+          <ul class="servicos" id="lista-servicos"></ul>
+        </aside>
+      </div>
+
+      <!-- ================= Coluna 2: agenda + fechamento ================= -->
+      <div class="coluna coluna--agenda">
+        <section class="cartao" id="agenda" aria-labelledby="titulo-agenda">
+          <h2 class="cartao__titulo" id="titulo-agenda">Agenda do dia</h2>
+
+          <div class="filtros">
+            <div class="campo">
+              <label class="campo__rotulo" for="data-agenda">Dia</label>
+              <input class="campo__entrada" type="date" id="data-agenda">
+            </div>
+            <div class="campo campo--busca">
+              <label class="campo__rotulo" for="busca">Buscar tutor ou pet</label>
+              <input class="campo__entrada" type="search" id="busca" autocomplete="off" placeholder="Digite para filtrar…">
+            </div>
+            <div class="campo">
+              <label class="campo__rotulo" for="filtro-status">Status</label>
+              <select class="campo__entrada" id="filtro-status">
+                <option value="todos">Todos</option>
+                <option value="Agendado">Agendado</option>
+                <option value="Concluído">Concluído</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="proximo" id="proximo">Próximo atendimento: —</p>
+          <p class="contador" id="contador" aria-live="polite">0 agendamentos</p>
+          <p class="vazio" id="agenda-vazio" hidden></p>
+          <ul class="agenda" id="lista-agenda"></ul>
+        </section>
+
+        <section class="cartao" id="fechamento" aria-labelledby="titulo-fechamento">
+          <h2 class="cartao__titulo" id="titulo-fechamento">Fechamento do dia</h2>
+          <p class="cartao__subtitulo" id="fechamento-data">—</p>
+
+          <dl class="resumo" id="fechamento-resumo"></dl>
+
+          <h3 class="subtitulo">Por serviço</h3>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="so-leitor">Atendimentos e faturamento por serviço no dia selecionado</caption>
+              <thead>
+                <tr><th scope="col">Serviço</th><th scope="col">Qtd.</th><th scope="col">Faturado</th></tr>
+              </thead>
+              <tbody id="fechamento-servicos"></tbody>
+            </table>
+          </div>
+
+          <h3 class="subtitulo">Dados</h3>
+          <div class="acoes">
+            <button type="button" class="botao botao--secundario" id="btn-exemplo">Carregar dados de exemplo</button>
+            <button type="button" class="botao botao--secundario" id="btn-exportar">Exportar agenda (JSON)</button>
+            <button type="button" class="botao botao--perigo" id="btn-limpar">Limpar meus dados</button>
+          </div>
+
+          <div class="exportacao" id="exportacao" hidden>
+            <label class="campo__rotulo" for="exportacao-texto">Agenda em JSON (copie e salve em data/agenda.json)</label>
+            <textarea class="campo__entrada exportacao__texto" id="exportacao-texto" rows="8" readonly></textarea>
+            <div class="acoes">
+              <button type="button" class="botao botao--secundario" id="btn-copiar">Copiar</button>
+              <button type="button" class="botao botao--secundario" id="btn-baixar">Baixar arquivo</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="cartao cartao--atalhos" aria-labelledby="titulo-atalhos">
+          <h2 class="cartao__titulo" id="titulo-atalhos">Atalhos de teclado</h2>
+          <ul class="atalhos">
+            <li><kbd>N</kbd> vai para o formulário de novo agendamento</li>
+            <li><kbd>/</kbd> foca a busca da agenda</li>
+            <li><kbd>Esc</kbd> limpa a busca</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <p>AgendaPet Web — projeto de estudo (Módulo 01, Semanas 13 e 14). Patinhas &amp; Cia é uma empresa fictícia.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
